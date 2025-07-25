@@ -1,7 +1,7 @@
 % slightly modified boilerplate -- non-fullscreen by default,
 % and set the background color (no need for all the FillRects)
 PsychDefaultSetup(2); 
-Screen('Preference', 'SkipSyncTests', 0);
+Screen('Preference', 'SkipSyncTests', 1);
 screenNum = max(Screen('Screens')) - 1; % set screen 
 Screen('Preference', 'VisualDebugLevel', 3);
 w = Screen('OpenWindow', screenNum);
@@ -23,4 +23,7 @@ Screen('DrawTexture', w, texture1, [], [], 45);
 Screen('Flip', w);
 
 pause(5);
+
+fr = FrameRate(w);
+fprintf('Frame rate = %f fps\n', fr);
 Screen('CloseAll');
