@@ -1,18 +1,15 @@
-dt = 1 / 100;
+Fs = 100000;
+dt = 1 / Fs;
 
 freq = 1;
 delta_x = 2;
 
 x0 = 0;
 
-w = 2 * pi * freq;
-A = delta_x * w^2 / (2*pi^2 + 1);
-C = x0 - A / w^2;
-
 T = 1 / freq;
 
 t = 0:dt:T;
-x = A * (t.^2/2 + cos(w.*t) / w^2) + C;
+x = delta_x * freq * (t - sin(2*pi*freq*t)/(2*pi*freq));
 
 figure(1);
 clf
