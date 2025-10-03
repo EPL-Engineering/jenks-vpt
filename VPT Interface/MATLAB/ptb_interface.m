@@ -31,18 +31,6 @@ try
             log = Display(grating, ptb, tcp_thread, log);
             grating.type = 'OFF';
             
-         elseif length(msg) > 8 && strcmpi(msg(1:8), 'startlog')
-            c = strsplit(msg, ':');
-            
-            tremote = str2double(c{2});
-            treceived = datetime(datenum(str2double(c{3})/1000), 'ConvertFrom', 'posixtime', 'TimeZone', 'local');
-
-            log = ClearLog(tremote, treceived);
-            log.active = true;
-            
-         elseif length(msg) > 6 && strcmpi(msg(1:6), 'endlog')
-            log = SaveLog(log, msg(8:end));
-            
          elseif strcmpi(msg, 'release')
             Screen('CloseAll');
             
@@ -140,98 +128,6 @@ ID = A(2);
 BG = A(3);
 SZ = A(4);
 LOC = lower(char(A(5:end)'));
-
-%--------------------------------------------------------------------------
-function G = InitializeGrating(init_string, ptb)
-
-icolon = find(init_string == ':');
-G.type = init_string(1:icolon-1);
-
-A = sscanf(init_string(icolon+1:end), '%f,');
-
-switch G.type
-   case 'OFF'
-      G.typeInt = 0;
-   case 'Square'
-      G.typeInt = 1;
-   case 'Sine'
-      G.typeInt = 2;
-end
-
-G.orientation_degrees = A(1);
-G.spatialFrequency_cpd = A(2);
-G.velocity_Hz = A(3);
-G.contrast = A(4);
-G.background = A(5);
-G.duration_ms = A(6);
-G.phase_cycles = A(7);
-
-G.phaseIncrement = G.velocity_Hz * ptb.ifi;
-G.cyclesPerPixel = G.spatialFrequency_cpd * ptb.degrees_per_pixel;
-
-%--------------------------------------------------------------------------
-function log = ClearLog(tremote, tlocal)
-
-if nargin < 1, tremote = 0; end
-if nargin < 2, tlocal = 0; end
-
-log.active = false;
-log.tlocal = tlocal;
-log.tremote = tremote;
-log.numOn = 0;
-log.numOff = 0;
-log.numDraw = 0;
-log.Ton = NaN(1e5, 1);
-log.Toff = log.Ton;
-log.Tdraw = log.Ton;
-
-%--------------------------------------------------------------------------
-function log = LogDrawTime(log)
-
-if ~log.active, return; end
-
-log.numDraw = log.numDraw + 1;
-% log.Tdraw(log.numDraw) = toc(log.tlocal) + log.tremote;
-% dt = seconds(datetime('now') - log.tlocal);
-% log.Tdraw(log.numDraw) = dt + log.tremote;
-log.Tdraw(log.numDraw) = datenum(datetime('now'));
-
-%--------------------------------------------------------------------------
-function log = LogOnTime(log)
-
-if ~log.active, return; end
-
-log.numOn = log.numOn + 1;
-% log.Ton(log.numOn) = toc(log.tlocal) + log.tremote;
-% dt = seconds(datetime('now') - log.tlocal);
-% log.Ton(log.numOn) = dt + log.tremote;
-log.Ton(log.numOn) = datenum(datetime('now'));
-
-%--------------------------------------------------------------------------
-function log = LogOffTime(log)
-
-if ~log.active, return; end
-
-log.numOff = log.numOff + 1;
-% log.Toff(log.numOff) = toc(log.tlocal) + log.tremote;
-% dt = seconds(datetime('now') - log.tlocal);
-% log.Toff(log.numOff) = dt + log.tremote;
-log.Toff(log.numOff) = datenum(datetime('now'));
-
-%--------------------------------------------------------------------------
-function vbl = SaveLog(vbl, fn)
-
-vbl.Ton = vbl.Ton(1:vbl.numOn);
-vbl.Toff = vbl.Toff(1:vbl.numOff);
-vbl.Tdraw = vbl.Tdraw(1:vbl.numDraw);
-
-folder = fileparts(fn);
-if ~exist(folder, 'dir')
-   mkdir(folder);
-end
-save(fn, 'vbl');
-
-vbl.active = false;
 
 %--------------------------------------------------------------------------
 % END OF PTB_INTERFACE.M
