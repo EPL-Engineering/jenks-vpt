@@ -1,10 +1,10 @@
 ﻿using System.IO;
-using Serilog.Parsing;
 
 namespace VPTInterface
 {
     public class ProjectionSettings
     {
+        public string imageFolder = FileLocations.ImageFolder;
         public string imageName = "test_pattern.png";
         public double[] backgroundColor = new double[3] {0, 0, 0 };
         public double distance = 50;

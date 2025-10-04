@@ -22,5 +22,5 @@ try
 
    clear t;
 catch ex
-   disp(ex.message);
+   fprintf('%s [ERROR] %s'\n', datestr(now, 'YYYY-mm-dd HH:MM:SS.fff'), ex.message);
 end

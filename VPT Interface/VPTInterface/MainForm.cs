@@ -102,6 +102,7 @@ namespace VPTInterface
             string message = parts[0];
             string data = (parts.Length > 1) ? parts[1] : null;
 
+            Debug.WriteLine($"message received '{message}'");
             Log.Information($"message received '{message}'");
 
             switch (message)
@@ -119,6 +120,10 @@ namespace VPTInterface
                     break;
                 case "Close":
                     Invoke(new Action(() => ClosePTB()));
+                    break;
+                case "InitializeMotion":
+                case "DoRotation":
+                    _network.SendMessageToPTB(message, data);
                     break;
             }
 
@@ -173,18 +178,18 @@ namespace VPTInterface
         private void openButton_Click(object sender, EventArgs e)
         {
             OpenPTB();
-            _network.SendMessageToPTB("Open", KLib.FileIO.JSONSerializeToString(_projectionSettings));
         }
 
         private void OpenPTB()
         {
             openButton.Visible = false;
-            
+            _network.SendMessageToPTB("Open", KLib.FileIO.JSONSerializeToString(_projectionSettings));
         }
 
         private void ClosePTB()
         {
             openButton.Visible = true;
+            _network.SendMessageToPTB("Close");
         }
 
         private void closeButton_Click(object sender, EventArgs e)

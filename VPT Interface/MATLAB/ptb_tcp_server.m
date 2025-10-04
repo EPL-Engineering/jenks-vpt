@@ -1,11 +1,11 @@
-function test_tcp_server
+function ptb_tcp_server
 
 app.settings = [];
 
 tcpServer = tcpserver("127.0.0.1", 4926);
 
 while true
-   
+   fprintf('%s Received message ''%s''\n', datestr(now, 'YYYY-mm-dd HH:MM:SS.fff'), 'wating for connection');
    while ~tcpServer.Connected
       pause(0.1);
    end
@@ -25,7 +25,7 @@ while true
       data = '';
    end
 
-   fprintf('Received message ''%s''\n', message);
+   fprintf('%s Received message ''%s''\n', datestr(now, 'YYYY-mm-dd HH:MM:SS.fff'), message);
 
    switch message
       case 'Open'
@@ -34,6 +34,14 @@ while true
 
       case 'Close'
          ClosePTB();
+
+      case 'InitializeMotion'
+         settings = jsondecode(data);
+         app = InitializeMotion(app, settings.frequency);
+
+      case 'DoRotation'
+         settings = jsondecode(data);
+         app = DoRotation(app, settings.delta, settings.direction);
 
       case 'Quit'
          break;
@@ -88,6 +96,34 @@ end
 function ClosePTB()
 
 Screen('CloseAll');
+
+end
+
+%--------------------------------------------------------------------------
+function app = InitializeMotion(app, freq)
+
+T = 1 / freq;
+dt = 1 / app.frameRate;
+
+t = 0:dt:T;
+
+app.position_vs_time = freq * (t - sin(2*pi*freq*t)/(2*pi*freq));
+
+app.lastPosition = 0;
+
+end
+
+%--------------------------------------------------------------------------
+function app = DoRotation(app, delta, direction)
+
+x = direction * delta * app.position_vs_time + app.lastPosition;
+
+for k = 1:length(x)
+   Screen('DrawTexture', app.window, app.imageTexture, [], [], x(k));
+   Screen('Flip', app.window);
+end
+
+app.lastPosition = x(end);
 
 end
 

@@ -93,13 +93,27 @@ namespace VPTInterface
 
             string input = server.ReadString();
 
-            var response = RemoteMessageHandler?.Invoke(input);
-            if (!string.IsNullOrEmpty(response))
+            if (input.Equals("GetProjectionSettings"))
             {
-                server.WriteStringAsByteArray(response);
+                var response = RemoteMessageHandler?.Invoke(input);
+                if (!string.IsNullOrEmpty(response))
+                {
+                    server.WriteStringAsByteArray(response);
+                    server.CloseTcpClient();
+                }
+                else
+                {
+                    server.SendAcknowledgement();
+                    server.CloseTcpClient();
+                }
+            }
+            else
+            {
+                server.SendAcknowledgement();
+                server.CloseTcpClient();
+                RemoteMessageHandler?.Invoke(input);
             }
 
-            server.CloseTcpClient();
         }
 
         private void MulticastReceiver(string name, IPEndPoint endpoint, CancellationToken ct)
@@ -147,6 +161,7 @@ namespace VPTInterface
             {
                 message += $":{data}";
             }
+            Debug.WriteLine($"sending {message}");
             var result = KTcpClient.SendMessage(_ptbEndpoint, message);
             Debug.WriteLine($"result = {result}");
         }

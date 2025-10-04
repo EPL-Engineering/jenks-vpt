@@ -18,5 +18,5 @@ try
    address = parts{1};
    port = str2double(parts{2});
 catch ex
-   disp(ex.message);
+   fprintf('%s [ERROR] %s\n', datestr(now, 'YYYY-mm-dd HH:MM:SS.fff'), ex.message);
 end

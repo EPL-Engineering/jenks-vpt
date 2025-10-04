@@ -6,7 +6,7 @@ try
    t = tcpclient(address, port, "Timeout", 5, "ConnectTimeout", 10);
 
    command = message;
-   if nargin > 3
+   if nargin > 3 && ~isempty(data)
       command = [command ':' data];
    end
 
@@ -18,5 +18,5 @@ try
 
    clear t;
 catch ex
-   disp(ex.message);
+   fprintf('%s [ERROR] %s\n', datestr(now, 'YYYY-mm-dd HH:MM:SS.fff'), ex.message);
 end
