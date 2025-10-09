@@ -20,6 +20,7 @@ namespace VPTInterface
         private VPTNetwork _network;
         private ProjectionSettings _projectionSettings;
 
+        private string _logFolder;
         private string _logPath;
 
         public MainForm()
@@ -30,7 +31,7 @@ namespace VPTInterface
         private void MainForm_Load(object sender, EventArgs e)
         {
             _network = new VPTNetwork();
-            _network.RemoteMessageHandler += HandleRemoteMessage;
+            //_network.RemoteMessageHandler += HandleRemoteMessage;
 
             if (!Directory.Exists(FileLocations.ImageFolder))
             {
@@ -44,10 +45,19 @@ namespace VPTInterface
 
         private async Task StartLogging()
         {
+            _logFolder = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                "Jenks",
+                "VPT",
+                "Logs");
+
+            if (!Directory.Exists(_logFolder))
+            {
+                Directory.CreateDirectory(_logFolder);
+            }
+
             _logPath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
-                "EPL",
-                "Logs",
+                _logFolder,
                 $"VPTInterface-{DateTime.Now.ToString("yyyyMMdd")}.txt");
 
             await Task.Run(() =>
@@ -68,8 +78,8 @@ namespace VPTInterface
 
             Log.Information($"VPT Interface v{Assembly.GetExecutingAssembly().GetName().Version.ToString()} started");
 
-            Log.Information("Starting TCP listener");
-            _network.StartListener();
+            Log.Information("Starting discovery server");
+            _network.StartDiscoveryServer();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -94,41 +104,29 @@ namespace VPTInterface
             monitorNumeric.Value = _projectionSettings.monitor;
         }
 
-        private string HandleRemoteMessage(string fullMessage)
-        {
-            string response = null;
+        //private string HandleRemoteMessage(string fullMessage)
+        //{
+        //    string response = null;
 
-            var parts = fullMessage.Split(new char[] { ':' }, 2);
-            string message = parts[0];
-            string data = (parts.Length > 1) ? parts[1] : null;
+        //    var parts = fullMessage.Split(new char[] { ':' }, 2);
+        //    string message = parts[0];
+        //    string data = (parts.Length > 1) ? parts[1] : null;
 
-            Debug.WriteLine($"message received '{message}'");
-            Log.Information($"message received '{message}'");
+        //    Debug.WriteLine($"message received '{message}'");
+        //    Log.Information($"message received '{message}'");
 
-            switch (message)
-            {
-                case "GetProjectionSettings":
-                    response = KLib.FileIO.JSONSerializeToString(_projectionSettings);
-                    break;
-                case "SetProjectionSettings":
-                    _projectionSettings = KLib.FileIO.JSONDeserializeFromString<ProjectionSettings>(data);
-                    Invoke(new Action(() => ShowSettings()));
-                    _projectionSettings.Save();
-                    break;
-                case "Open":
-                    Invoke(new Action(() => OpenPTB()));
-                    break;
-                case "Close":
-                    Invoke(new Action(() => ClosePTB()));
-                    break;
-                case "InitializeMotion":
-                case "DoRotation":
-                    _network.SendMessageToPTB(message, data);
-                    break;
-            }
+        //    switch (message)
+        //    {
+        //        case "Open":
+        //            Invoke(new Action(() => OpenPTB()));
+        //            break;
+        //        case "Close":
+        //            Invoke(new Action(() => ClosePTB()));
+        //            break;
+        //    }
 
-            return response;
-        }
+        //    return response;
+        //}
 
         private void mmFileExit_Click(object sender, EventArgs e)
         {
@@ -138,6 +136,15 @@ namespace VPTInterface
         private void mmFileShowLog_Click(object sender, EventArgs e)
         {
             Process.Start(_logPath);
+
+            string ptbLogPath = Path.Combine(
+                _logFolder,
+                $"PTBInterface-{DateTime.Now.ToString("yyyyMMdd")}.txt");
+
+            if (File.Exists(ptbLogPath))
+            {
+                Process.Start(ptbLogPath);
+            }
         }
 
         private void fileBrowser_ValueChanged(object sender, EventArgs e)
@@ -182,13 +189,13 @@ namespace VPTInterface
 
         private void OpenPTB()
         {
-            openButton.Visible = false;
+            //openButton.Visible = false;
             _network.SendMessageToPTB("Open", KLib.FileIO.JSONSerializeToString(_projectionSettings));
         }
 
         private void ClosePTB()
         {
-            openButton.Visible = true;
+            //openButton.Visible = true;
             _network.SendMessageToPTB("Close");
         }
 

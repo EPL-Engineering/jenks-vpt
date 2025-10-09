@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,97 +25,98 @@ namespace VPTInterface
         public delegate string RemoteMessageHandlerDelegate(string message);
         public RemoteMessageHandlerDelegate RemoteMessageHandler { set; get; } = null;
 
-        private IPEndPoint _ipEndPoint;
-        private int _serverPort = 4951;
-        private bool _lastPingSucceeded = false;
+        public IPEndPoint PTBEndPoint { get; private set; }
 
-        private IPEndPoint _ptbEndpoint = new IPEndPoint(IPAddress.Loopback, 4926);
+        private CancellationTokenSource _serverCancellationToken = null;
 
-        private CancellationTokenSource _serverCancellationToken;
-
-        public bool IsConnected { get { return _ipEndPoint != null && _lastPingSucceeded; } }
-
-        public VPTNetwork() { }
+        public VPTNetwork() 
+        {
+#if DEBUG
+            PTBEndPoint = new IPEndPoint(IPAddress.Parse("169.254.245.221"), 4926);
+#else
+            PTBEndPoint = Discovery.FindNextAvailableEndPoint();
+#endif
+        }
 
         public void Disconnect()
         {
-            if (_ipEndPoint != null)
+            if (_serverCancellationToken != null)
             {
                 _serverCancellationToken.Cancel();
             }
-            KTcpClient.SendMessage(_ptbEndpoint, "Quit");
+            if (PTBEndPoint != null)
+            {
+                KTcpClient.SendMessage(PTBEndPoint, "Quit");
+            }
         }
 
-        public void StartListener()
+        public void StartDiscoveryServer()
         {
-            _ipEndPoint = Discovery.FindNextAvailableEndPoint();
-
             _serverCancellationToken = new CancellationTokenSource();
-            Task.Run(() =>
-            {
-                Listener(_ipEndPoint, _serverCancellationToken.Token);
-            }, _serverCancellationToken.Token);
+            //Task.Run(() =>
+            //{
+            //    Listener(_ipEndPoint, _serverCancellationToken.Token);
+            //}, _serverCancellationToken.Token);
 
             Task.Run(() =>
             {
-                MulticastReceiver("VPT.INTERFACE", _ipEndPoint, _serverCancellationToken.Token);
+                MulticastReceiver("VPT.INTERFACE", PTBEndPoint, _serverCancellationToken.Token);
             }, _serverCancellationToken.Token);
         }
 
-        private void Listener(IPEndPoint endpoint, CancellationToken ct)
-        {
-            var server = new KTcpListener();
-            server.StartListener(endpoint);
+        //private void Listener(IPEndPoint endpoint, CancellationToken ct)
+        //{
+        //    var server = new KTcpListener();
+        //    server.StartListener(endpoint);
 
-            Debug.WriteLine($"TCP server started on {server.ListeningOn}");
+        //    Debug.WriteLine($"TCP server started on {server.ListeningOn}");
 
-            while (!ct.IsCancellationRequested)
-            {
-                try
-                {
-                    if (server.Pending())
-                    {
-                        ProcessTCPMessage(server);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                }
-            }
+        //    while (!ct.IsCancellationRequested)
+        //    {
+        //        try
+        //        {
+        //            if (server.Pending())
+        //            {
+        //                ProcessTCPMessage(server);
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Debug.WriteLine(ex.Message);
+        //        }
+        //    }
 
-            server.CloseListener();
-            Debug.WriteLine("TCP server stopped");
-        }
+        //    server.CloseListener();
+        //    Debug.WriteLine("TCP server stopped");
+        //}
 
-        private void ProcessTCPMessage(KTcpListener server)
-        {
-            server.AcceptTcpClient();
+        //private void ProcessTCPMessage(KTcpListener server)
+        //{
+        //    server.AcceptTcpClient();
 
-            string input = server.ReadString();
+        //    string input = server.ReadString();
 
-            if (input.Equals("GetProjectionSettings"))
-            {
-                var response = RemoteMessageHandler?.Invoke(input);
-                if (!string.IsNullOrEmpty(response))
-                {
-                    server.WriteStringAsByteArray(response);
-                    server.CloseTcpClient();
-                }
-                else
-                {
-                    server.SendAcknowledgement();
-                    server.CloseTcpClient();
-                }
-            }
-            else
-            {
-                server.SendAcknowledgement();
-                server.CloseTcpClient();
-                RemoteMessageHandler?.Invoke(input);
-            }
-
-        }
+        //    if (input.Equals("GetProjectionSettings"))
+        //    {
+        //        var response = RemoteMessageHandler?.Invoke(input);
+        //        if (!string.IsNullOrEmpty(response))
+        //        {
+        //            server.WriteStringAsByteArray(response);
+        //            server.CloseTcpClient();
+        //        }
+        //        else
+        //        {
+        //            server.SendAcknowledgement();
+        //            server.CloseTcpClient();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        server.SendAcknowledgement();
+        //        server.CloseTcpClient();
+        //        RemoteMessageHandler?.Invoke(input);
+        //    }
+        //}
 
         private void MulticastReceiver(string name, IPEndPoint endpoint, CancellationToken ct)
         {
@@ -162,7 +164,7 @@ namespace VPTInterface
                 message += $":{data}";
             }
             Debug.WriteLine($"sending {message}");
-            var result = KTcpClient.SendMessage(_ptbEndpoint, message);
+            var result = KTcpClient.SendMessage(PTBEndPoint, message);
             Debug.WriteLine($"result = {result}");
         }
 

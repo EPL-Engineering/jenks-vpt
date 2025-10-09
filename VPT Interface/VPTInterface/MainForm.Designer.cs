@@ -55,7 +55,8 @@
             this.fileToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(326, 28);
+            this.mainMenu.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.mainMenu.Size = new System.Drawing.Size(244, 24);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -66,25 +67,25 @@
             this.toolStripSeparator1,
             this.mmFileExit});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // mmFileShowLog
             // 
             this.mmFileShowLog.Name = "mmFileShowLog";
-            this.mmFileShowLog.Size = new System.Drawing.Size(154, 26);
+            this.mmFileShowLog.Size = new System.Drawing.Size(123, 22);
             this.mmFileShowLog.Text = "Show &log";
             this.mmFileShowLog.Click += new System.EventHandler(this.mmFileShowLog_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(151, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(120, 6);
             // 
             // mmFileExit
             // 
             this.mmFileExit.Name = "mmFileExit";
-            this.mmFileExit.Size = new System.Drawing.Size(154, 26);
+            this.mmFileExit.Size = new System.Drawing.Size(123, 22);
             this.mmFileExit.Text = "E&xit";
             this.mmFileExit.Click += new System.EventHandler(this.mmFileExit_Click);
             // 
@@ -97,12 +98,11 @@
             this.fileBrowser.Filter = null;
             this.fileBrowser.FoldersOnly = false;
             this.fileBrowser.HideFolder = true;
-            this.fileBrowser.Location = new System.Drawing.Point(136, 60);
-            this.fileBrowser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.fileBrowser.Location = new System.Drawing.Point(102, 49);
             this.fileBrowser.Name = "fileBrowser";
             this.fileBrowser.ReadOnly = false;
             this.fileBrowser.ShowSaveButton = false;
-            this.fileBrowser.Size = new System.Drawing.Size(161, 26);
+            this.fileBrowser.Size = new System.Drawing.Size(121, 21);
             this.fileBrowser.TabIndex = 1;
             this.fileBrowser.UseEllipsis = false;
             this.fileBrowser.Value = "";
@@ -110,10 +110,9 @@
             // 
             // backgroundColorBox
             // 
-            this.backgroundColorBox.Location = new System.Drawing.Point(136, 94);
-            this.backgroundColorBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.backgroundColorBox.Location = new System.Drawing.Point(102, 76);
             this.backgroundColorBox.Name = "backgroundColorBox";
-            this.backgroundColorBox.Size = new System.Drawing.Size(118, 27);
+            this.backgroundColorBox.Size = new System.Drawing.Size(88, 22);
             this.backgroundColorBox.TabIndex = 2;
             this.backgroundColorBox.Value = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.backgroundColorBox.ValueAsUInt = ((uint)(4294967295u));
@@ -128,16 +127,15 @@
             this.distanceNumeric.FloatValue = 0F;
             this.distanceNumeric.IntValue = 0;
             this.distanceNumeric.IsInteger = false;
-            this.distanceNumeric.Location = new System.Drawing.Point(136, 139);
-            this.distanceNumeric.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.distanceNumeric.Location = new System.Drawing.Point(102, 113);
             this.distanceNumeric.MaxCoerce = false;
-            this.distanceNumeric.MaximumSize = new System.Drawing.Size(20000, 22);
+            this.distanceNumeric.MaximumSize = new System.Drawing.Size(15000, 16);
             this.distanceNumeric.MaxValue = 1.7976931348623157E+308D;
             this.distanceNumeric.MinCoerce = false;
-            this.distanceNumeric.MinimumSize = new System.Drawing.Size(10, 22);
+            this.distanceNumeric.MinimumSize = new System.Drawing.Size(8, 16);
             this.distanceNumeric.MinValue = 0D;
             this.distanceNumeric.Name = "distanceNumeric";
-            this.distanceNumeric.Size = new System.Drawing.Size(118, 22);
+            this.distanceNumeric.Size = new System.Drawing.Size(88, 16);
             this.distanceNumeric.TabIndex = 3;
             this.distanceNumeric.TextFormat = "K4";
             this.distanceNumeric.ToolTip = "";
@@ -154,16 +152,15 @@
             this.widthNumeric.FloatValue = 0F;
             this.widthNumeric.IntValue = 0;
             this.widthNumeric.IsInteger = false;
-            this.widthNumeric.Location = new System.Drawing.Point(136, 181);
-            this.widthNumeric.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.widthNumeric.Location = new System.Drawing.Point(102, 147);
             this.widthNumeric.MaxCoerce = false;
-            this.widthNumeric.MaximumSize = new System.Drawing.Size(20000, 22);
+            this.widthNumeric.MaximumSize = new System.Drawing.Size(15000, 16);
             this.widthNumeric.MaxValue = 1.7976931348623157E+308D;
             this.widthNumeric.MinCoerce = false;
-            this.widthNumeric.MinimumSize = new System.Drawing.Size(10, 22);
+            this.widthNumeric.MinimumSize = new System.Drawing.Size(8, 16);
             this.widthNumeric.MinValue = 0D;
             this.widthNumeric.Name = "widthNumeric";
-            this.widthNumeric.Size = new System.Drawing.Size(118, 22);
+            this.widthNumeric.Size = new System.Drawing.Size(88, 16);
             this.widthNumeric.TabIndex = 4;
             this.widthNumeric.TextFormat = "K4";
             this.widthNumeric.ToolTip = "";
@@ -180,16 +177,15 @@
             this.monitorNumeric.FloatValue = 0F;
             this.monitorNumeric.IntValue = 0;
             this.monitorNumeric.IsInteger = true;
-            this.monitorNumeric.Location = new System.Drawing.Point(136, 222);
-            this.monitorNumeric.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.monitorNumeric.Location = new System.Drawing.Point(102, 180);
             this.monitorNumeric.MaxCoerce = false;
-            this.monitorNumeric.MaximumSize = new System.Drawing.Size(20000, 22);
+            this.monitorNumeric.MaximumSize = new System.Drawing.Size(15000, 16);
             this.monitorNumeric.MaxValue = 1.7976931348623157E+308D;
             this.monitorNumeric.MinCoerce = true;
-            this.monitorNumeric.MinimumSize = new System.Drawing.Size(10, 22);
+            this.monitorNumeric.MinimumSize = new System.Drawing.Size(8, 16);
             this.monitorNumeric.MinValue = 0D;
             this.monitorNumeric.Name = "monitorNumeric";
-            this.monitorNumeric.Size = new System.Drawing.Size(118, 22);
+            this.monitorNumeric.Size = new System.Drawing.Size(88, 16);
             this.monitorNumeric.TabIndex = 5;
             this.monitorNumeric.TextFormat = "K4";
             this.monitorNumeric.ToolTip = "";
@@ -200,53 +196,59 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 64);
+            this.label1.Location = new System.Drawing.Point(32, 52);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 16);
+            this.label1.Size = new System.Drawing.Size(36, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "Image";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(43, 100);
+            this.label2.Location = new System.Drawing.Point(32, 81);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 16);
+            this.label2.Size = new System.Drawing.Size(65, 13);
             this.label2.TabIndex = 7;
             this.label2.Text = "Background";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(43, 142);
+            this.label3.Location = new System.Drawing.Point(32, 115);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 16);
+            this.label3.Size = new System.Drawing.Size(72, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "Distance (cm)";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(43, 184);
+            this.label4.Location = new System.Drawing.Point(32, 150);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(70, 16);
+            this.label4.Size = new System.Drawing.Size(58, 13);
             this.label4.TabIndex = 9;
             this.label4.Text = "Width (cm)";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(43, 225);
+            this.label5.Location = new System.Drawing.Point(32, 183);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(51, 16);
+            this.label5.Size = new System.Drawing.Size(42, 13);
             this.label5.TabIndex = 10;
             this.label5.Text = "Monitor";
             // 
             // openButton
             // 
-            this.openButton.Location = new System.Drawing.Point(136, 281);
+            this.openButton.Location = new System.Drawing.Point(30, 228);
+            this.openButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.openButton.Name = "openButton";
-            this.openButton.Size = new System.Drawing.Size(118, 45);
+            this.openButton.Size = new System.Drawing.Size(88, 37);
             this.openButton.TabIndex = 11;
             this.openButton.Text = "Open";
             this.openButton.UseVisualStyleBackColor = true;
@@ -254,9 +256,10 @@
             // 
             // closeButton
             // 
-            this.closeButton.Location = new System.Drawing.Point(136, 281);
+            this.closeButton.Location = new System.Drawing.Point(122, 228);
+            this.closeButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(118, 45);
+            this.closeButton.Size = new System.Drawing.Size(88, 37);
             this.closeButton.TabIndex = 12;
             this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = true;
@@ -264,9 +267,9 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(326, 350);
+            this.ClientSize = new System.Drawing.Size(244, 284);
             this.Controls.Add(this.openButton);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -281,7 +284,6 @@
             this.Controls.Add(this.mainMenu);
             this.Controls.Add(this.closeButton);
             this.MainMenuStrip = this.mainMenu;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "VPT Interface";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
