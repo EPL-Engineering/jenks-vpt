@@ -1,6 +1,6 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="216378081" file="D:\Development\epl-tosca\MATLAB\PTB Interface\Tosca_PTB_Interface.prj" location="D:\Development\epl-tosca\MATLAB\PTB Interface" name="Tosca_PTB_Interface" preferred-package-location="D:\Development\epl-tosca\MATLAB\PTB Interface\Tosca_PTB_Interface\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
-    <param.appname>Tosca_PTB_Interface</param.appname>
+  <configuration build-checksum="3934754124" file="D:\Development\Jenks\jenks-vpt\VPT Interface\MATLAB\VPT_PTB_Interface.prj" location="D:\Development\Jenks\jenks-vpt\VPT Interface\MATLAB" name="VPT_PTB_Interface" preferred-package-location="D:\Development\Jenks\jenks-vpt\VPT Interface\MATLAB\VPT_PTB_Interface\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
+    <param.appname>VPT_PTB_Interface</param.appname>
     <param.icon>${PROJECT_ROOT}\Tosca_PTB_Interface_resources\icon.ico</param.icon>
     <param.icons>
       <file>${PROJECT_ROOT}\Tosca_PTB_Interface_resources\icon_48.png</file>
@@ -8,7 +8,7 @@
       <file>${PROJECT_ROOT}\Tosca_PTB_Interface_resources\icon_24.png</file>
       <file>${PROJECT_ROOT}\Tosca_PTB_Interface_resources\icon_16.png</file>
     </param.icons>
-    <param.version>1.7</param.version>
+    <param.version>1.0</param.version>
     <param.authnamewatermark />
     <param.email />
     <param.company />
@@ -16,15 +16,15 @@
     <param.description />
     <param.screenshot />
     <param.guid />
-    <param.installpath.string>EPL\Tosca\PTB Interface\</param.installpath.string>
+    <param.installpath.string>Jenks\VPT\PTB Interface\</param.installpath.string>
     <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
     <param.logo />
     <param.install.notes />
     <param.target.install.notes />
-    <param.intermediate>${PROJECT_ROOT}\Tosca_PTB_Interface\for_testing</param.intermediate>
-    <param.files.only>${PROJECT_ROOT}\Tosca_PTB_Interface\for_redistribution_files_only</param.files.only>
-    <param.output>${PROJECT_ROOT}\Tosca_PTB_Interface\for_redistribution</param.output>
-    <param.logdir>${PROJECT_ROOT}\Tosca_PTB_Interface</param.logdir>
+    <param.intermediate>${PROJECT_ROOT}\VPT_PTB_Interface\for_testing</param.intermediate>
+    <param.files.only>${PROJECT_ROOT}\VPT_PTB_Interface\for_redistribution_files_only</param.files.only>
+    <param.output>${PROJECT_ROOT}\VPT_PTB_Interface\for_redistribution</param.output>
+    <param.logdir>${PROJECT_ROOT}\VPT_PTB_Interface</param.logdir>
     <param.enable.clean.build>false</param.enable.clean.build>
     <param.user.defined.mcr.options />
     <param.target.type>subtarget.standalone</param.target.type>
@@ -32,7 +32,7 @@
     <param.web.mcr>true</param.web.mcr>
     <param.package.mcr>false</param.package.mcr>
     <param.no.mcr>false</param.no.mcr>
-    <param.web.mcr.name>Tosca_PTB_Interface_Installer_1_7</param.web.mcr.name>
+    <param.web.mcr.name>VTP_PTB_Interface_Installer</param.web.mcr.name>
     <param.package.mcr.name>MyAppInstaller_mcr</param.package.mcr.name>
     <param.no.mcr.name>MyAppInstaller_app</param.no.mcr.name>
     <param.windows.command.prompt>false</param.windows.command.prompt>
@@ -42,12 +42,13 @@
     <param.checkbox>false</param.checkbox>
     <param.example />
     <param.help.text>Syntax 
-	 ptb_interface -? 
-	 ptb_interface init_string 
+	 VPT_PTB_Interface -? 
+	 VPT_PTB_Interface ipEndPoint 
  Input Arguments 
 	 -?  print help on how to use the application 
-	 init_string  input arguments</param.help.text>
+	 ipEndPoint  input arguments</param.help.text>
     <unset>
+      <param.version />
       <param.authnamewatermark />
       <param.email />
       <param.company />
@@ -76,70 +77,68 @@
       <param.example />
     </unset>
     <fileset.main>
-      <file>${PROJECT_ROOT}\ptb_interface.m</file>
+      <file>${PROJECT_ROOT}\ptb_tcp_server.m</file>
     </fileset.main>
     <fileset.resources>
       <file>D:\Development\3rd Party\Psychtoolbox\PsychOpenGL\MOGL\core</file>
-      <file>${PROJECT_ROOT}\Grating</file>
-      <file>${PROJECT_ROOT}\ptb_interface.m</file>
-      <file>${PROJECT_ROOT}\Shaders\BasicGratingShader.frag.txt</file>
-      <file>${PROJECT_ROOT}\Shaders\BasicGratingShader.vert.txt</file>
-      <file>${PROJECT_ROOT}\TCPThread.jar</file>
-      <file>${PROJECT_ROOT}\TCPThread_KeepOpen.jar</file>
     </fileset.resources>
     <fileset.package>
-      <file>${PROJECT_ROOT}\Shaders\BasicGratingShader.frag.txt</file>
-      <file>${PROJECT_ROOT}\Shaders\BasicGratingShader.vert.txt</file>
+      <file>${PROJECT_ROOT}\ptb_tcp_server.m</file>
     </fileset.package>
     <fileset.depfun>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychBasic\MatlabWindowsFilesR2007a\moglcore.mexw64</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychBasic\MatlabWindowsFilesR2007a\Screen.mexw64</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychBasic\psychlasterror.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychContributed\ple.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychDocumentation\PsychPaidSupportAndServices.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychFiles\PsychtoolboxConfigDir.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychObsolete\IsWindows.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychOneliners\AssertGLSL.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychOneliners\AssertOpenGL.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychOneliners\IsARM.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychOneliners\IsLinux.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychOneliners\IsOctave.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychOneliners\IsOSX.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychOneliners\IsWayland.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychOneliners\IsWin.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychOneliners\kPsychUseTextureMatrixForRotation.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychOneliners\PsychNumel.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychOneliners\PsychtoolboxRoot.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychOneliners\streq.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychOpenGL\LoadGLSLProgramFromFiles.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychOpenGL\LoadShaderFromFile.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychOpenGL\MOGL\wrap\glAttachShader.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychOpenGL\MOGL\wrap\glCompileShader.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychOpenGL\MOGL\wrap\glCreateProgram.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychOpenGL\MOGL\wrap\glCreateShader.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychOpenGL\MOGL\wrap\glGetString.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychOpenGL\MOGL\wrap\glGetUniformLocation.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychOpenGL\MOGL\wrap\glLinkProgram.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychOpenGL\MOGL\wrap\glShaderSource.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychOpenGL\MOGL\wrap\glUniform1f.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychOpenGL\MOGL\wrap\glUniform2f.m</file>
-      <file>D:\Development\3rd Party\Psychtoolbox\PsychOpenGL\MOGL\wrap\glUseProgram.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychRects\CenterRectOnPointd.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychRects\OffsetRect.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychRects\RectBottom.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychRects\RectCenterd.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychRects\RectLeft.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychRects\RectRight.m</file>
-      <file>d:\Development\3rd Party\Psychtoolbox\PsychRects\RectTop.m</file>
+      <file>C:\Psychtoolbox\PsychBasic\DrawFormattedText.m</file>
+      <file>C:\Psychtoolbox\PsychBasic\KbCheck.m</file>
+      <file>C:\Psychtoolbox\PsychBasic\KbName.m</file>
+      <file>C:\Psychtoolbox\PsychBasic\LoadPsychHID.m</file>
+      <file>C:\Psychtoolbox\PsychBasic\MatlabWindowsFilesR2007a\moglcore.mexw64</file>
+      <file>C:\Psychtoolbox\PsychBasic\MatlabWindowsFilesR2007a\PsychHID.mexw64</file>
+      <file>C:\Psychtoolbox\PsychBasic\MatlabWindowsFilesR2007a\Screen.mexw64</file>
+      <file>C:\Psychtoolbox\PsychBasic\MatlabWindowsFilesR2007a\WaitSecs.mexw64</file>
+      <file>C:\Psychtoolbox\PsychBasic\psychlasterror.m</file>
+      <file>C:\Psychtoolbox\PsychBasic\psychrethrow.m</file>
+      <file>C:\Psychtoolbox\PsychContributed\ple.m</file>
+      <file>C:\Psychtoolbox\PsychDocumentation\PsychPaidSupportAndServices.m</file>
+      <file>C:\Psychtoolbox\PsychFiles\PsychtoolboxConfigDir.m</file>
+      <file>C:\Psychtoolbox\PsychHardware\GetKeyboardIndices.m</file>
+      <file>C:\Psychtoolbox\PsychHardware\GetKeypadIndices.m</file>
+      <file>C:\Psychtoolbox\PsychObsolete\IsOS9.m</file>
+      <file>C:\Psychtoolbox\PsychObsolete\IsWindows.m</file>
+      <file>C:\Psychtoolbox\PsychOneliners\AssertOpenGL.m</file>
+      <file>C:\Psychtoolbox\PsychOneliners\FrameRate.m</file>
+      <file>C:\Psychtoolbox\PsychOneliners\Is64Bit.m</file>
+      <file>C:\Psychtoolbox\PsychOneliners\IsARM.m</file>
+      <file>C:\Psychtoolbox\PsychOneliners\IsLinux.m</file>
+      <file>C:\Psychtoolbox\PsychOneliners\IsOctave.m</file>
+      <file>C:\Psychtoolbox\PsychOneliners\IsOSX.m</file>
+      <file>C:\Psychtoolbox\PsychOneliners\IsWayland.m</file>
+      <file>C:\Psychtoolbox\PsychOneliners\IsWin.m</file>
+      <file>C:\Psychtoolbox\PsychOneliners\PsychDefaultSetup.m</file>
+      <file>C:\Psychtoolbox\PsychOneliners\PsychNumel.m</file>
+      <file>C:\Psychtoolbox\PsychOneliners\PsychtoolboxRoot.m</file>
+      <file>C:\Psychtoolbox\PsychOneliners\streq.m</file>
+      <file>C:\Psychtoolbox\PsychOneliners\WhiteIndex.m</file>
+      <file>C:\Psychtoolbox\PsychOneliners\WrapString.m</file>
+      <file>C:\Psychtoolbox\PsychRects\CenterRect.m</file>
+      <file>C:\Psychtoolbox\PsychRects\OffsetRect.m</file>
+      <file>C:\Psychtoolbox\PsychRects\RectBottom.m</file>
+      <file>C:\Psychtoolbox\PsychRects\RectCenterd.m</file>
+      <file>C:\Psychtoolbox\PsychRects\RectHeight.m</file>
+      <file>C:\Psychtoolbox\PsychRects\RectLeft.m</file>
+      <file>C:\Psychtoolbox\PsychRects\RectRight.m</file>
+      <file>C:\Psychtoolbox\PsychRects\RectTop.m</file>
+      <file>C:\Psychtoolbox\PsychRects\RectWidth.m</file>
+      <file>C:\Psychtoolbox\PsychRects\SetRect.m</file>
+      <file>${PROJECT_ROOT}\SoundVolume.m</file>
+      <file>D:\Development\matlab-packages\+epl\Logger.m</file>
     </fileset.depfun>
     <build-deliverables>
-      <file location="${PROJECT_ROOT}\Tosca_PTB_Interface\for_testing" name="Tosca_PTB_Interface.exe" optional="false">D:\Development\epl-tosca\MATLAB\PTB Interface\Tosca_PTB_Interface\for_testing\Tosca_PTB_Interface.exe</file>
-      <file location="${PROJECT_ROOT}\Tosca_PTB_Interface\for_testing" name="readme.txt" optional="true">D:\Development\epl-tosca\MATLAB\PTB Interface\Tosca_PTB_Interface\for_testing\readme.txt</file>
-      <file location="${PROJECT_ROOT}\Tosca_PTB_Interface\for_testing" name="splash.png" optional="false">D:\Development\epl-tosca\MATLAB\PTB Interface\Tosca_PTB_Interface\for_testing\splash.png</file>
+      <file location="${PROJECT_ROOT}\VPT_PTB_Interface\for_testing" name="VPT_PTB_Interface.exe" optional="false">D:\Development\Jenks\jenks-vpt\VPT Interface\MATLAB\VPT_PTB_Interface\for_testing\VPT_PTB_Interface.exe</file>
+      <file location="${PROJECT_ROOT}\VPT_PTB_Interface\for_testing" name="readme.txt" optional="true">D:\Development\Jenks\jenks-vpt\VPT Interface\MATLAB\VPT_PTB_Interface\for_testing\readme.txt</file>
+      <file location="${PROJECT_ROOT}\VPT_PTB_Interface\for_testing" name="splash.png" optional="false">D:\Development\Jenks\jenks-vpt\VPT Interface\MATLAB\VPT_PTB_Interface\for_testing\splash.png</file>
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>C:\Program Files\MATLAB\R2021b</root>
+      <root>C:\Program Files\MATLAB\R2023b</root>
       <toolboxes>
         <toolbox name="matlabcoder" />
         <toolbox name="embeddedcoder" />

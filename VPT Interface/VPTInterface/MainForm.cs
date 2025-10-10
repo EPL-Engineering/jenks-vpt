@@ -46,7 +46,7 @@ namespace VPTInterface
         private async Task StartLogging()
         {
             _logFolder = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments),
                 "Jenks",
                 "VPT",
                 "Logs");
@@ -202,6 +202,25 @@ namespace VPTInterface
         private void closeButton_Click(object sender, EventArgs e)
         {
             ClosePTB();
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+#if DEBUG
+            string ptbInterfacePath = @"C:\Program Files\Jenks\VPT\PTB Interface\application\VPT_PTB_Interface.exe";
+#else
+            string folder = AppDomain.CurrentDomain.BaseDirectory;
+            string rootFolder = Path.GetDirectoryName(folder.Substring(0, folder.Length-1));
+            string ptbInterfacePath = Path.Combine(rootFolder, "PTB Interface", "application", "VPT_PTB_Interface.exe");
+            MessageBox.Show(ptbInterfacePath);
+#endif
+
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.FileName = ptbInterfacePath;
+            startInfo.Arguments = _network.PTBEndPoint.ToString();
+            Process process = new Process();
+            process.StartInfo = startInfo;
+            process.Start();
         }
     }
 }

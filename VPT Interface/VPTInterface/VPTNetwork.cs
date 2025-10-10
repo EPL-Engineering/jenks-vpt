@@ -31,7 +31,7 @@ namespace VPTInterface
 
         public VPTNetwork() 
         {
-#if DEBUG
+#if false && DEBUG
             PTBEndPoint = new IPEndPoint(IPAddress.Parse("169.254.245.221"), 4926);
 #else
             PTBEndPoint = Discovery.FindNextAvailableEndPoint();

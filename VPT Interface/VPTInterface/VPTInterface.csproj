@@ -106,4 +106,7 @@
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if "$(ConfigurationName)" == "Release" ("C:\Program Files (x86)\Inno Setup 6\Compil32.exe" /cc "$(SolutionDir)Installer\VPT-Interface-Installer.iss")</PostBuildEvent>
+  </PropertyGroup>
 </Project>

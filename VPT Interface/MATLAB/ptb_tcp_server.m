@@ -5,10 +5,10 @@ if nargin == 0
 end
 
 app.settings = [];
-app.imageFolder = fullfile(fileparts(userpath), 'Jenks', 'VPT', 'Images');
+app.imageFolder = fullfile(getenv('PUBLIC'), 'Documents', 'Jenks', 'VPT', 'Images');
 
 % Starting logging
-folder = fullfile(fileparts(userpath), 'Jenks', 'VPT', 'Logs');
+folder = fullfile(getenv('PUBLIC'), 'Documents', 'Jenks', 'VPT', 'Logs');
 logger = epl.Logger(folder, 'PTBInterface');
 
 % Start TCP server
@@ -16,7 +16,11 @@ parts = split(ipEndPoint, ':');
 address = parts{1};
 port = str2double(parts{2});
 
-tcpServer = tcpserver(address, port);
+try
+   tcpServer = tcpserver(address, port);
+catch ex
+   logger.LogError(sprintf('error creating TCP server: %s', ex.message));
+end
 
 logger.LogInfo(sprintf('Started TCP listener on %s', ipEndPoint));
 

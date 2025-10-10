@@ -45,6 +45,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.openButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -129,13 +130,13 @@
             this.distanceNumeric.IsInteger = false;
             this.distanceNumeric.Location = new System.Drawing.Point(102, 113);
             this.distanceNumeric.MaxCoerce = false;
-            this.distanceNumeric.MaximumSize = new System.Drawing.Size(15000, 16);
+            this.distanceNumeric.MaximumSize = new System.Drawing.Size(20000, 20);
             this.distanceNumeric.MaxValue = 1.7976931348623157E+308D;
             this.distanceNumeric.MinCoerce = false;
-            this.distanceNumeric.MinimumSize = new System.Drawing.Size(8, 16);
+            this.distanceNumeric.MinimumSize = new System.Drawing.Size(10, 20);
             this.distanceNumeric.MinValue = 0D;
             this.distanceNumeric.Name = "distanceNumeric";
-            this.distanceNumeric.Size = new System.Drawing.Size(88, 16);
+            this.distanceNumeric.Size = new System.Drawing.Size(88, 20);
             this.distanceNumeric.TabIndex = 3;
             this.distanceNumeric.TextFormat = "K4";
             this.distanceNumeric.ToolTip = "";
@@ -154,13 +155,13 @@
             this.widthNumeric.IsInteger = false;
             this.widthNumeric.Location = new System.Drawing.Point(102, 147);
             this.widthNumeric.MaxCoerce = false;
-            this.widthNumeric.MaximumSize = new System.Drawing.Size(15000, 16);
+            this.widthNumeric.MaximumSize = new System.Drawing.Size(20000, 20);
             this.widthNumeric.MaxValue = 1.7976931348623157E+308D;
             this.widthNumeric.MinCoerce = false;
-            this.widthNumeric.MinimumSize = new System.Drawing.Size(8, 16);
+            this.widthNumeric.MinimumSize = new System.Drawing.Size(10, 20);
             this.widthNumeric.MinValue = 0D;
             this.widthNumeric.Name = "widthNumeric";
-            this.widthNumeric.Size = new System.Drawing.Size(88, 16);
+            this.widthNumeric.Size = new System.Drawing.Size(88, 20);
             this.widthNumeric.TabIndex = 4;
             this.widthNumeric.TextFormat = "K4";
             this.widthNumeric.ToolTip = "";
@@ -179,13 +180,13 @@
             this.monitorNumeric.IsInteger = true;
             this.monitorNumeric.Location = new System.Drawing.Point(102, 180);
             this.monitorNumeric.MaxCoerce = false;
-            this.monitorNumeric.MaximumSize = new System.Drawing.Size(15000, 16);
+            this.monitorNumeric.MaximumSize = new System.Drawing.Size(20000, 20);
             this.monitorNumeric.MaxValue = 1.7976931348623157E+308D;
             this.monitorNumeric.MinCoerce = true;
-            this.monitorNumeric.MinimumSize = new System.Drawing.Size(8, 16);
+            this.monitorNumeric.MinimumSize = new System.Drawing.Size(10, 20);
             this.monitorNumeric.MinValue = 0D;
             this.monitorNumeric.Name = "monitorNumeric";
-            this.monitorNumeric.Size = new System.Drawing.Size(88, 16);
+            this.monitorNumeric.Size = new System.Drawing.Size(88, 20);
             this.monitorNumeric.TabIndex = 5;
             this.monitorNumeric.TextFormat = "K4";
             this.monitorNumeric.ToolTip = "";
@@ -246,7 +247,7 @@
             // openButton
             // 
             this.openButton.Location = new System.Drawing.Point(30, 228);
-            this.openButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.openButton.Margin = new System.Windows.Forms.Padding(2);
             this.openButton.Name = "openButton";
             this.openButton.Size = new System.Drawing.Size(88, 37);
             this.openButton.TabIndex = 11;
@@ -257,7 +258,7 @@
             // closeButton
             // 
             this.closeButton.Location = new System.Drawing.Point(122, 228);
-            this.closeButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.closeButton.Margin = new System.Windows.Forms.Padding(2);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(88, 37);
             this.closeButton.TabIndex = 12;
@@ -265,11 +266,22 @@
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(115, 27);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(244, 284);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.openButton);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -315,6 +327,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button openButton;
         private System.Windows.Forms.Button closeButton;
+        private System.Windows.Forms.Button button1;
     }
 }
 
