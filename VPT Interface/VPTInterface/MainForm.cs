@@ -207,12 +207,12 @@ namespace VPTInterface
         private async void button1_Click(object sender, EventArgs e)
         {
 #if DEBUG
+//            string ptbInterfacePath = @"C:\Program Files\Jenks\VPT\PTB Interface\application\VPT_PTB_Interface.exe";
             string ptbInterfacePath = @"C:\Program Files\Jenks\VPT\PTB Interface\application\VPT_PTB_Interface.exe";
 #else
             string folder = AppDomain.CurrentDomain.BaseDirectory;
             string rootFolder = Path.GetDirectoryName(folder.Substring(0, folder.Length-1));
             string ptbInterfacePath = Path.Combine(rootFolder, "PTB Interface", "application", "VPT_PTB_Interface.exe");
-            MessageBox.Show(ptbInterfacePath);
 #endif
 
             ProcessStartInfo startInfo = new ProcessStartInfo();
@@ -221,6 +221,40 @@ namespace VPTInterface
             Process process = new Process();
             process.StartInfo = startInfo;
             process.Start();
+
+            bool processStarted = false;
+            string reason = "";
+
+            var startTime = DateTime.Now;
+            while (true)
+            {
+                await Task.Delay(100);
+                if (process.HasExited)
+                {
+                    reason = "PTB process exited";
+                    break;
+                }
+
+                if ((DateTime.Now - startTime).TotalSeconds > 20)
+                {
+                    reason = "timed out waiting for response";
+                    break;
+                }    
+
+                var result = _network.SendMessageToPTB("Ping");
+                if (result > 0)
+                {
+                    processStarted = true;
+                    break;
+                }
+            }
+
+            if (!processStarted)
+            {
+                string message = $"Failed to start PTB Interface process: {reason}";
+                Log.Error(message);
+                MessageBox.Show(message);
+            }
         }
     }
 }

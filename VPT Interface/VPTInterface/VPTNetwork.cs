@@ -157,15 +157,18 @@ namespace VPTInterface
             }
         }
 
-        public void SendMessageToPTB(string message, string data = null)
+        public int SendMessageToPTB(string message, string data = null)
         {
             if (data != null)
             {
                 message += $":{data}";
             }
+
             Debug.WriteLine($"sending {message}");
             var result = KTcpClient.SendMessage(PTBEndPoint, message);
             Debug.WriteLine($"result = {result}");
+
+            return result;
         }
 
     }
