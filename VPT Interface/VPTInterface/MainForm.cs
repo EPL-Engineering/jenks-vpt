@@ -78,6 +78,9 @@ namespace VPTInterface
 
             Log.Information($"VPT Interface v{Assembly.GetExecutingAssembly().GetName().Version.ToString()} started");
 
+            Log.Information("Starting PTB Interface");
+            await StartPTBInterface();
+
             Log.Information("Starting discovery server");
             _network.StartDiscoveryServer();
         }
@@ -204,7 +207,7 @@ namespace VPTInterface
             ClosePTB();
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private async Task StartPTBInterface()
         {
 #if DEBUG
 //            string ptbInterfacePath = @"C:\Program Files\Jenks\VPT\PTB Interface\application\VPT_PTB_Interface.exe";
