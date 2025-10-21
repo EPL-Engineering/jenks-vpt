@@ -5,6 +5,8 @@ if nargin == 0
 end
 
 app.settings = [];
+app.noiseLevel = 0;
+app.noiseRunning = false;
 app.imageFolder = fullfile(getenv('PUBLIC'), 'Documents', 'Jenks', 'VPT', 'Images');
 
 % Starting logging
@@ -66,7 +68,12 @@ while true
             end
 
          case 'Volume'
-            SoundVolume(str2double(data));
+            app.noiseLevel = str2double(data);
+            if app.noiseRunning
+               app = StopAudio(app);
+               app = StartAudio(app);
+            end
+            % SoundVolume(str2double(data));
 
          case 'DoRotation'
             settings = jsondecode(data);
@@ -174,7 +181,7 @@ function app = DoRotation(app, delta, direction)
 
 x = direction * delta * app.position_vs_time + app.lastPosition;
 
-whitenoise = normrnd(0, 0.2, round(44100 * app.noiseDur), 1);
+whitenoise = app.noiseLevel * normrnd(0, 0.2, round(44100 * app.noiseDur), 1);
 player = audioplayer(whitenoise, 44100);
 play(player);
 
@@ -192,7 +199,7 @@ function app = DoLeftRight(app, delta_position, direction)
 
 x = direction * delta_position * app.position_vs_time + app.lastPosition;
 
-whitenoise = normrnd(0, 0.2, round(44100 * app.noiseDur), 1);
+whitenoise = app.noiseLevel * normrnd(0, 0.2, round(44100 * app.noiseDur), 1);
 player = audioplayer(whitenoise, 44100);
 play(player);
 
@@ -208,7 +215,7 @@ function app = DoUpDown(app, delta_position, direction)
 
 y = -direction * delta_position * app.position_vs_time + app.lastPosition;
 
-whitenoise = normrnd(0, 0.2, round(44100 * app.noiseDur), 1);
+whitenoise = app.noiseLevel * normrnd(0, 0.2, round(44100 * app.noiseDur), 1);
 player = audioplayer(whitenoise, 44100);
 play(player);
 
@@ -227,7 +234,7 @@ delta_x_pixels = delta_x_cm * app.projection.pixels_per_cm;
 
 x = delta_x_pixels * app.position_vs_time + app.lastPosition;
 
-whitenoise = normrnd(0, 0.2, round(44100 * app.noiseDur), 1);
+whitenoise = app.noiseLevel * normrnd(0, 0.2, round(44100 * app.noiseDur), 1);
 player = audioplayer(whitenoise, 44100);
 play(player);
 
@@ -242,28 +249,22 @@ app.lastPosition = x(end);
 end
 
 %--------------------------------------------------------------------
-function PlayNoise(app)
-
-whitenoise = normrnd(0, 0.2, round(44100 * app.noiseDur), 1);
-player = audioplayer(whitenoise, 44100);
-play(player);
-end
-
-%--------------------------------------------------------------------
 function app = StartAudio(app)
 Fs = 44100;
 T = 30;
 nsamples = round(Fs * T);
-whitenoise = normrnd(0, 0.2, nsamples, 1);
+whitenoise = app.noiseLevel * normrnd(0, 0.2, nsamples, 1);
 app.audioPlayer = audioplayer(whitenoise, Fs);
 app.audioPlayer.StopFcn = @AudioPlayerStopFcn;
 play(app.audioPlayer);
+app.noiseRunning = true;
 end
 
 %--------------------------------------------------------------------
 function app = StopAudio(app)
 app.audioPlayer.StopFcn = [];
 stop(app.audioPlayer);
+app.noiseRunning = false;
 end
 
 %--------------------------------------------------------------------
