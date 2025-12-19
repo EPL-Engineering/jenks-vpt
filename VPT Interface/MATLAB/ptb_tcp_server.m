@@ -229,7 +229,7 @@ end
 %--------------------------------------------------------------------
 function app = DoZoom(app, delta_position, direction)
 
-delta_x_cm = app.data.settings.screenDistance * tan((app.projection.theta + direction * delta_position) * pi/180) - app.projection.imageWidth_cm;
+delta_x_cm = app.settings.distance * tan((app.projection.theta + direction * delta_position) * pi/180) - app.projection.imageWidth_cm;
 delta_x_pixels = delta_x_cm * app.projection.pixels_per_cm;
 
 x = delta_x_pixels * app.position_vs_time + app.lastPosition;
